@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+.env
+
+# Flask
+instance/
+
+# Logs
+*.log
+
+# VS Code
+.vscode/
+
+# JetBrains
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uploads
+frontend/static/uploads/
+
+# Python cache
+*.pyo
+*.pyd
+
+# MySQL dump
+*.sql
+
+# Environment
+.env
