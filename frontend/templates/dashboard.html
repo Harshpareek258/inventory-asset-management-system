@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard Overview{% endblock %}
+
+{% block content %}
+
+<!-- ================= WELCOME BAR ================= -->
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="fw-semibold mb-1">Welcome back, Admin 👋</h4>
+        <p class="text-muted mb-0">Here's what's happening with your assets today.</p>
+    </div>
+    <div class="mt-2 mt-md-0">
+        <button class="btn btn-primary">
+            <i class="bi bi-plus-lg me-1"></i> Add New Asset
+        </button>
+    </div>
+</div>
+
+<!-- ================= STAT CARDS ================= -->
+<div class="row g-4 mb-4">
+    <div class="col-sm-6 col-xl-3">
+        <div class="stat-card stat-card-blue">
+            <div class="stat-card-icon">
+                <i class="bi bi-box-seam"></i>
+            </div>
+            <div class="stat-card-body">
+                <span class="stat-card-label">Total Assets</span>
+                <span class="stat-card-value">{{ stats.total_assets }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-xl-3">
+        <div class="stat-card stat-card-green">
+            <div class="stat-card-icon">
+                <i class="bi bi-person-check"></i>
+            </div>
+            <div class="stat-card-body">
+                <span class="stat-card-label">Assigned Assets</span>
+                <span class="stat-card-value">{{ stats.assigned_assets }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-xl-3">
+        <div class="stat-card stat-card-amber">
+            <div class="stat-card-icon">
+                <i class="bi bi-check2-circle"></i>
+            </div>
+            <div class="stat-card-body">
+                <span class="stat-card-label">Available Assets</span>
+                <span class="stat-card-value">{{ stats.available_assets }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-xl-3">
+        <div class="stat-card stat-card-purple">
+            <div class="stat-card-icon">
+                <i class="bi bi-people"></i>
+            </div>
+            <div class="stat-card-body">
+                <span class="stat-card-label">Employees</span>
+                <span class="stat-card-value">{{ stats.employees }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= RECENT ASSETS TABLE ================= -->
+<div class="row g-4">
+    <div class="col-12 col-xl-7">
+        <div class="panel-card h-100">
+            <div class="panel-card-header">
+                <h6 class="panel-card-title"><i class="bi bi-clock-history me-2"></i>Recent Assets</h6>
+                <a href="#" class="panel-card-link">View All <i class="bi bi-arrow-right"></i></a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Asset ID</th>
+                            <th>Asset Name</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Assigned To</th>
+                            <th>Date Added</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for asset in recent_assets %}
+                        <tr>
+                            <td class="fw-semibold text-primary">{{ asset.asset_id }}</td>
+                            <td>{{ asset.name }}</td>
+                            <td>{{ asset.category }}</td>
+                            <td>
+                                {% if asset.status == 'Assigned' %}
+                                    <span class="badge status-badge status-assigned">Assigned</span>
+                                {% elif asset.status == 'Available' %}
+                                    <span class="badge status-badge status-available">Available</span>
+                                {% else %}
+                                    <span class="badge status-badge status-maintenance">Under Maintenance</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ asset.assigned_to }}</td>
+                            <td class="text-muted">{{ asset.date_added }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= RECENT ACTIVITIES TABLE ================= -->
+    <div class="col-12 col-xl-5">
+        <div class="panel-card h-100">
+            <div class="panel-card-header">
+                <h6 class="panel-card-title"><i class="bi bi-activity me-2"></i>Recent Activities</h6>
+                <a href="#" class="panel-card-link">View All <i class="bi bi-arrow-right"></i></a>
+            </div>
+            <ul class="activity-list">
+                {% for activity in recent_activities %}
+                <li class="activity-item">
+                    <div class="activity-icon">
+                        <i class="bi bi-dot"></i>
+                    </div>
+                    <div class="activity-content">
+                        <p class="activity-title mb-0">{{ activity.activity }}</p>
+                        <p class="activity-desc mb-0">{{ activity.description }}</p>
+                        <span class="activity-meta">{{ activity.user }} &bull; {{ activity.timestamp }}</span>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
