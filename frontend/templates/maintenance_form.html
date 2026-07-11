@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Maintenance{% endblock %}
+
+{% block page_title %}Maintenance{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-warning">
+
+            <h4>Send Asset For Maintenance</h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST">
+
+                {{ form.hidden_tag() }}
+
+                <div class="mb-3">
+
+                    {{ form.asset.label(class="form-label") }}
+
+                    {{ form.asset(class="form-select") }}
+
+                </div>
+
+                <div class="mb-3">
+
+                    {{ form.issue.label(class="form-label") }}
+
+                    {{ form.issue(class="form-control") }}
+
+                </div>
+
+                {{ form.submit(class="btn btn-warning") }}
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

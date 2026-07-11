@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Maintenance{% endblock %}
+
+{% block page_title %}Maintenance{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between mb-3">
+
+        <h2>Maintenance Records</h2>
+
+        <a href="{{ url_for('maintenance.add_maintenance') }}"
+           class="btn btn-warning">
+
+            Send Asset
+
+        </a>
+
+    </div>
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Asset</th>
+                <th>Issue</th>
+                <th>Status</th>
+                <th>Reported</th>
+                <th>Resolved</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        {% for r in records %}
+
+        <tr>
+
+            <td>{{ r.id }}</td>
+
+            <td>{{ r.asset.asset_name }}</td>
+
+            <td>{{ r.issue }}</td>
+
+            <td>
+
+                {% if r.status=="Pending" %}
+                    <span class="badge bg-warning">Pending</span>
+                {% else %}
+                    <span class="badge bg-success">Completed</span>
+                {% endif %}
+
+            </td>
+
+            <td>{{ r.reported_date }}</td>
+
+            <td>{{ r.resolved_date or "-" }}</td>
+
+            <td>
+
+                {% if r.status=="Pending" %}
+
+                <a href="{{ url_for('maintenance.complete_maintenance', id=r.id) }}"
+                   class="btn btn-success btn-sm">
+
+                    Complete
+
+                </a>
+
+                {% else %}
+
+                ✔
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

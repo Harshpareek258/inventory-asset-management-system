@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Assets{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Asset Management</h2>
+
+        <a href="{{ url_for('assets.add_asset') }}" class="btn btn-primary">
+            + Add Asset
+        </a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="GET" class="mb-3">
+
+        <div class="input-group">
+
+            <input
+                type="text"
+                name="search"
+                class="form-control"
+                placeholder="Search Asset..."
+                value="{{ search }}">
+
+            <button class="btn btn-primary">
+
+                Search
+
+            </button>
+
+        </div>
+
+    </form>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+
+            <tr>
+                <th>ID</th>
+                <th>Asset Code</th>
+                <th>Asset Name</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Purchase Date</th>
+                <th>Actions</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for asset in assets %}
+
+            <tr>
+
+                <td>{{ asset.id }}</td>
+                <td>{{ asset.asset_code }}</td>
+                <td>{{ asset.asset_name }}</td>
+                <td>{{ asset.category }}</td>
+                <td>{{ asset.status }}</td>
+                <td>{{ asset.purchase_date }}</td>
+
+                <td>
+
+                    <a href="{{ url_for('assets.edit_asset', id=asset.id) }}"
+                       class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
+
+                    <a href="{{ url_for('assets.delete_asset', id=asset.id) }}"
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('Delete this asset?')">
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+
+        {% else %}
+
+            <tr>
+
+                <td colspan="7" class="text-center">
+                    No Assets Found
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

@@ -46,31 +46,36 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link {% if active_page == 'assets' %}active{% endif %}">
+                        <a href="{{ url_for('assets.list_assets') }}"
+                           class="nav-link {% if active_page == 'assets' %}active{% endif %}">
                             <i class="bi bi-pc-display-horizontal"></i>
                             <span class="link-text">Assets</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link {% if active_page == 'employees' %}active{% endif %}">
-                            <i class="bi bi-people"></i>
+                        <a href="{{ url_for('employees.list_employees') }}"
+                           class="nav-link {% if active_page == 'employees' %}active{% endif %}">
+                            <i class="bi bi-people-fill"></i>
                             <span class="link-text">Employees</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link {% if active_page == 'assignments' %}active{% endif %}">
+                        <a href="{{ url_for('assignments.list_assignments') }}"
+                           class="nav-link {% if active_page == 'assignments' %}active{% endif %}">
                             <i class="bi bi-arrow-left-right"></i>
                             <span class="link-text">Assignments</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link {% if active_page == 'maintenance' %}active{% endif %}">
+                        <a href="{{ url_for('maintenance.list_maintenance') }}"
+                           class="nav-link {% if active_page == 'maintenance' %}active{% endif %}">
                             <i class="bi bi-tools"></i>
                             <span class="link-text">Maintenance</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link {% if active_page == 'reports' %}active{% endif %}">
+                        <a href="#"
+                           class="nav-link {% if active_page == 'reports' %}active{% endif %}">
                             <i class="bi bi-bar-chart-line"></i>
                             <span class="link-text">Reports</span>
                         </a>
@@ -131,10 +136,24 @@
                 </div>
             </header>
 
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show mt-2">
+                            {{ message }}
+                            <button type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="alert">
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
             <!-- ================= PAGE CONTENT ================= -->
-            <main class="page-content">
+            <header class="page-content">
                 {% block content %}{% endblock %}
-            </main>
+            </header>
 
             <!-- ================= FOOTER ================= -->
             <footer class="page-footer">

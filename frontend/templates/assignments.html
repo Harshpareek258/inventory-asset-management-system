@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+Assignments
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<div class="d-flex justify-content-between">
+
+<h2>Assignments</h2>
+
+<a href="{{ url_for('assignments.add_assignment') }}"
+class="btn btn-success">
+
+Assign Asset
+
+</a>
+
+</div>
+
+<table class="table table-striped mt-3">
+
+<thead><tr><th>ID</th><th>Asset</th><th>Employee</th><th>Assigned Date</th><th>Status</th><th>Action</th></tr></thead>
+
+<tbody>
+
+{% for a in assignments %}<tr><td>{{ a.id }}</td><td>{{ a.asset.asset_name }}</td><td>{{ a.employee.full_name }}</td><td>{{ a.assigned_date }}</td><td>
+
+{% if a.status=="Assigned" %}<span class="badge bg-warning">
+Assigned</span>
+
+{% else %}<span class="badge bg-success">
+Returned</span>
+
+{% endif %}</td><td>
+
+{% if a.status=="Assigned" %}<a href="{{ url_for('assignments.return_asset',id=a.id) }}"class="btn btn-success btn-sm">
+
+Return</a>
+
+{% else %}
+
+—
+
+{% endif %}</td></tr>
+
+{% endfor %}</tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

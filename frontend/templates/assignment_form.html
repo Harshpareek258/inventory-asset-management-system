@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}
+Assign Asset
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<div class="card shadow">
+
+<div class="card-header bg-success text-white">
+
+<h3>Assign Asset</h3>
+
+</div>
+
+<div class="card-body">
+
+<form method="POST">
+
+{{ form.hidden_tag() }}
+
+<div class="mb-3">
+
+{{ form.asset.label(class="form-label") }}
+
+{{ form.asset(class="form-select") }}
+
+</div>
+
+<div class="mb-3">
+
+{{ form.employee.label(class="form-label") }}
+
+{{ form.employee(class="form-select") }}
+
+</div>
+
+<div class="mb-3">
+
+{{ form.assigned_date.label(class="form-label") }}
+
+{{ form.assigned_date(class="form-control") }}
+
+</div>
+
+{{ form.submit(class="btn btn-success") }}
+
+<a href="{{ url_for('assignments.list_assignments') }}"
+class="btn btn-secondary">
+
+Cancel
+
+</a>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}
